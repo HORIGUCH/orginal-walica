@@ -89,8 +89,9 @@ export default function ExpenseModal({
       const totalAmount = parseFloat(amount);
 
       // 1. 親レコード作成 (Expenses)
-      const { data: expense, error: expError } = await supabase
-        .from("expenses")
+      const { data: expense, error: expError } = await (
+        supabase.from("expenses") as any
+      )
         .insert({
           group_id: groupId,
           paid_by: paidBy,
@@ -113,9 +114,9 @@ export default function ExpenseModal({
         .filter((r) => r.amount_owed > 0); // 0円の人は登録しない方針
 
       if (splitRecords.length > 0) {
-        const { error: splitError } = await supabase
-          .from("expense_splits")
-          .insert(splitRecords);
+        const { error: splitError } = await (
+          supabase.from("expense_splits") as any
+        ).insert(splitRecords);
 
         if (splitError) throw splitError;
       }

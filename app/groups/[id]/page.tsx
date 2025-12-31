@@ -91,7 +91,7 @@ export default function GroupPage() {
 
     const supabase = createGroupClient(groupId);
 
-    const { error } = await supabase.from("members").insert({
+    const { error } = await (supabase.from("members") as any).insert({
       group_id: groupId,
       name: newMemberName,
     });

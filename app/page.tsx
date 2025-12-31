@@ -18,9 +18,8 @@ export default function Home() {
     const newGroupId = uuidv4();
 
     // 2. IDを指定してINSERTする（.select() は使わない！）
-    // これにより、RLS（読み取り権限）のチェックを回避して書き込みだけを行う
-    const { error } = await supabase.from("groups").insert({
-      id: newGroupId, // IDを指定
+    const { error } = await (supabase.from("groups") as any).insert({
+      id: newGroupId,
       name: groupName,
       currency: "JPY",
     });
